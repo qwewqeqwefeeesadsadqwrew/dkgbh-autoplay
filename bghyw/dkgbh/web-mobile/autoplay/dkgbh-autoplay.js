@@ -673,7 +673,7 @@
     var t0 = now();
     var reason = 'unknown';
 
-    return waitReady(40000).then(function (r) {
+    return waitReady(240000).then(function (r) {   // 公网首次加载关卡要几百个请求，给 4 分钟
       if (!r.ok) { reason = 'not-ready'; return null; }
       // 本关资源已就绪 → 放开预缓存闸门（公网版：先保游戏能玩，再后台缓存整包）
       try { window.__dkgbhPrecacheGo = true; } catch (e) {}
@@ -789,7 +789,7 @@
           return sleep(rand(300, 900));
         })
         .then(function () { return root.__AUTO.enter(idx, opts.mode); })
-        .then(function () { return sleep(rand(600, 1400)); })
+        .then(function () { return sleep(rand(800, 1800)); })
         .then(function () { return playLevel(opts); })
         .then(function (r) {
           if (r && (r.reason === 'not-ready' || r.reason === 'no-steps')) {
