@@ -118,7 +118,7 @@
     var t0 = Date.now();
     (function tick() {
       if (homeReady()) return cb();
-      if (Date.now() - t0 > (timeoutMs || 90000)) { log('首页等待超时，仍尝试开始'); return cb(); }
+      if (Date.now() - t0 > (timeoutMs || 600000)) { log('首页等待超时，仍尝试开始'); return cb(); }
       setTimeout(tick, 250);
     })();
   }
@@ -127,7 +127,7 @@
     var t0 = Date.now();
     (function tick() {
       if (runtimeReady()) return cb();
-      if (Date.now() - t0 > 120000) return log('运行时等待超时');
+      if (Date.now() - t0 > 600000) return log('运行时等待超时（10 分钟）');
       setTimeout(tick, 200);
     })();
   }
@@ -197,7 +197,7 @@
 
   function loadDriver(cb) {
     var sc = document.createElement('script');
-    sc.src = 'autoplay/dkgbh-autoplay.js?v=20';
+    sc.src = 'autoplay/dkgbh-autoplay.js?v=21';
     sc.onload = function () { cb(); };
     sc.onerror = function () { log('驱动加载失败'); };
     document.body.appendChild(sc);
