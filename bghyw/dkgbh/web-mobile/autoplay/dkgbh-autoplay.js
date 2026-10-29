@@ -675,6 +675,8 @@
 
     return waitReady(40000).then(function (r) {
       if (!r.ok) { reason = 'not-ready'; return null; }
+      // 本关资源已就绪 → 放开预缓存闸门（公网版：先保游戏能玩，再后台缓存整包）
+      try { window.__dkgbhPrecacheGo = true; } catch (e) {}
       var g = Guide();
       if (!g || !g._steps || !g._steps.length) { reason = 'no-steps'; return null; }
       var steps = g._steps;
