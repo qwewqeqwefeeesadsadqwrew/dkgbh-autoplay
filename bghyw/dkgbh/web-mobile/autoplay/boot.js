@@ -197,7 +197,7 @@
 
   function loadDriver(cb) {
     var sc = document.createElement('script');
-    sc.src = 'autoplay/dkgbh-autoplay.js?v=19';
+    sc.src = 'autoplay/dkgbh-autoplay.js?v=20';
     sc.onload = function () { cb(); };
     sc.onerror = function () { log('驱动加载失败'); };
     document.body.appendChild(sc);
