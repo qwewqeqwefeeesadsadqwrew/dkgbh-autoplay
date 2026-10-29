@@ -3,7 +3,7 @@
   var CACHE = 'dkgbh-v1';
   var DONE = 'precache-done-dkgbh-v1-v2';
   var LIST = 'precache.json';
-  var CONC = 6;
+  var CONC = 3;
 
   if (localStorage.getItem(DONE) === '1') return;
 
@@ -87,6 +87,14 @@
   }
 
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(function () {});
-  window.addEventListener('load', function () { setTimeout(start, 3000); });
-  if (document.readyState === 'complete') setTimeout(start, 3000);
+  // 等游戏真的进关再开始下载（否则 253MB 会把游戏首屏要的资源挤死，首次打开十几分钟进不去）
+  function waitGameThenStart() {
+    var t0 = Date.now();
+    (function tick() {
+      if (window.__dkgbhPrecacheGo || Date.now() - t0 > 300000) return start();
+      setTimeout(tick, 2000);
+    })();
+  }
+  window.addEventListener('load', function () { setTimeout(waitGameThenStart, 1500); });
+  if (document.readyState === 'complete') setTimeout(waitGameThenStart, 1500);
 })();
