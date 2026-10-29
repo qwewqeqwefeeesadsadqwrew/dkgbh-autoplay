@@ -59,6 +59,16 @@
     System.import('./index.6e58a.js').catch(function(err) { console.error(err); })
 </script>
 
+
+  <script>
+    // 运行时缓存：第一次用到哪就缓存哪，之后每关读本地
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/dkgbh-autoplay/sw.js', { scope: '/dkgbh-autoplay/' })
+          .catch(function (e) { console.warn('[sw] 注册失败', e); });
+      });
+    }
+  </script>
   <script src="autoplay/boot.js?v=21"></script>
 </body>
 </html>
